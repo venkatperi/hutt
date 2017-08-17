@@ -1,0 +1,13 @@
+sites/
+build/
+*.swp
+logs/
+*.log
+node_modules/
+.idea/
+dist/
+.coveralls.yml
+coverage/
+*.lock
+tmp/
+gen/

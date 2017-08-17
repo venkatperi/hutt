@@ -1,0 +1,4 @@
+var __prevfilename__ = currentFilename;
+global.currentFilename = __filename;
+{{{ code }}}
+global.currentFilename = __prevfilename_;

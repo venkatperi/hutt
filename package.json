@@ -1,0 +1,49 @@
+{
+  "name": "gulpr",
+  "version": "0.4.1",
+  "description": "Making gulpjs easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "arrayp": "^1.1.0",
+    "asc-tree": "^1.0.1",
+    "cross-spawn-promise": "^0.10.1",
+    "debug": "^3.0.0",
+    "deepmerge": "^1.5.1",
+    "file-entry-cache": "^2.0.0",
+    "glob": "^7.1.2",
+    "gulp-util": "^3.0.8",
+    "handlebars": "^4.0.10",
+    "istanbul-lib-hook": "^1.0.7",
+    "js-dsl": "^0.6.2",
+    "lodash": "^4.17.4",
+    "multi-glob": "^1.0.1",
+    "pify": "^3.0.0",
+    "ramda": "^0.24.1",
+    "rimraf": "^2.6.1",
+    "stack-trace": "0.0.10"
+  },
+  "devDependencies": {
+    "documentation": "^5.2.1",
+    "eslint": "^4.4.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.2.1",
+    "gulp": "^3.9.1",
+    "gulp-documentation": "^3.2.1",
+    "memory-streams": "^0.1.2",
+    "mocha": "^3.5.0",
+    "semantic-release": "^6.3.6",
+    "unique-string": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/venkatperi/gulpr.git"
+  }
+}
