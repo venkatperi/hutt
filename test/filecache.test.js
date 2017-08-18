@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // Copyright 2017, Venkat Peri.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20,19 +19,28 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const Hutt = require( '../lib/hutt' );
+const assert = require( 'assert' );
+const FileCache = require( '../lib/FileCache' )
+const path = require( 'path' );
+const fs = require( 'fs' );
+const pify = require( 'pify' );
+const rimraf = pify( require( 'rimraf' ) );
 
-describe( 'project builder', () => {
-  it( 'sourceSets', () => new Hutt().build( () => {
-    task( 'default', () => {
-    } )
-    sourceSets( () => {
-      main( () => {
-        js( () => {
-          srcDir( 'src' )
-        } )
-      } )
-    } )
-    console.log( sourceSets$.main.js )
-  } ).catch( console.log ) );
+const baseDir = path.join( __dirname, 'fixtures' )
+const cachePath = path.join( __dirname, 'tmp', 'cache' );
+const files = ['a.txt', 'b.txt', 'c.txt'].map( x => path.resolve( baseDir, x ) )
+
+describe( 'file cache', () => {
+  let cache = null;
+
+  beforeEach( () => rimraf( cachePath ) )
+
+  it( 'create with path', () => {
+    cache = new FileCache( { name: 'test', files, cachePath } )
+    cache.reconcile();
+    assert( fs.existsSync( path.join( cachePath, 'test' ) ) );
+  } );
+
+
 } );
+

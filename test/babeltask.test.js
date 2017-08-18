@@ -23,16 +23,9 @@
 const Hutt = require( '../lib/hutt' );
 
 describe( 'project builder', () => {
-  it( 'sourceSets', () => new Hutt().build( () => {
-    task( 'default', () => {
+  it( 'babel', () => new Hutt().build( () => {
+    name = 'babel'
+    babel( 'default', () => {
     } )
-    sourceSets( () => {
-      main( () => {
-        js( () => {
-          srcDir( 'src' )
-        } )
-      } )
-    } )
-    console.log( sourceSets$.main.js )
   } ).catch( console.log ) );
 } );
