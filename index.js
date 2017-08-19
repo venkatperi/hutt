@@ -19,5 +19,22 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-module.exports = require( './lib/tasks' );
-module.exports.GLogStream = require( './lib/GLogStream' );
+const Project = require( './lib/core/Project' )
+const Task = require( './lib/core/Task' )
+const SourceSetTask = require( './lib/core/SourceSetTask' )
+const BuildTask = require( './lib/core/BuildTask' )
+const PluginBase = require( './lib/core/PluginBase' )
+const SourceSet = require( './lib/core/SourceSet' )
+const SourceSets = require( './lib/core/SourceSets' )
+const Hutt = require( './lib/hutt' )
+
+module.exports = {
+  Project,
+  Task,
+  SourceSet,
+  SourceSets,
+  SourceSetTask,
+  PluginBase,
+  BuildTask,
+  Hutt,
+}
