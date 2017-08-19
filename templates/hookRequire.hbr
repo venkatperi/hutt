@@ -1,3 +1,4 @@
+global.localRequire = require;
 var __prevfilename__ = currentFilename;
 global.currentFilename = __filename;
 {{{ code }}}
