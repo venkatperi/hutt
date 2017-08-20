@@ -1,6 +1,6 @@
 {
   "name": "hutt",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Javascript project builder",
   "main": "index.js",
   "scripts": {
