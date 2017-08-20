@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "local-publish": "npm publish --registry http://localhost:4873",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "Venkat Peri <venkatperi@gmail.com>",
@@ -26,7 +27,8 @@
     "pify": "^3.0.0",
     "ramda": "^0.24.1",
     "resolve": "^1.4.0",
-    "stack-trace": "0.0.10"
+    "stack-trace": "0.0.10",
+    "write": "^1.0.3"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.0",

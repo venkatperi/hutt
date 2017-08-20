@@ -1,4 +1,3 @@
-/* eslint-disable no-undef,class-methods-use-this */
 // Copyright 2017, Venkat Peri.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20,37 +19,19 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const PluginBase = require( '../../core/PluginBase' );
-const { TaskBuilder } = require( '../../core/TaskFactory' );
-const SpawnTask = require( './SpawnTask' );
-const { builder, factory } = require( '../../util/dsl-helpers' );
+const assert = require( 'assert' );
+const MultiGlob = require( '../lib/util/MultiGlob' )
+const path = require( 'path' );
 
-const SpawnTaskBuilder = builder( {
-  name: 'spawn',
-  superClass: TaskBuilder,
-  propertyNames: [
-    'args', 'environment', 'errorOutput', 'executable',
-    'ignoreExitValue', 'standardInput', 'standardOutput',
-    'workingDir',
-  ],
-} )
-
-const SpawnTaskFactory = factory( {
-  ItemClass: SpawnTask,
-  BuilderClass: SpawnTaskBuilder,
+describe( 'multi glob', () => {
+  it( 'glob multiple patterns', () => {
+    new MultiGlob({
+      cwd: path.join(__dirname, 'fixtures'),
+      ignore: ['a.txt'],
+    })
+      .search( ['**/*.js', '**/*.txt'] )
+      .then( console.log )
+      .catch( console.log )
+  } );
 } );
 
-class SpawnTaskPlugin extends PluginBase {
-  constructor( opts = {} ) {
-    opts.name = opts.name || 'spawn';
-    super( opts );
-  }
-
-  registerBuilderItems( bldr ) {
-    if ( bldr.name === 'project' ) {
-      bldr.registerFactory( 'spawn', new SpawnTaskFactory() );
-    }
-  }
-}
-
-module.exports = SpawnTaskPlugin;
