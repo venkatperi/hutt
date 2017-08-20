@@ -27,6 +27,7 @@ const PluginBase = require( './lib/core/PluginBase' )
 const SourceSet = require( './lib/core/SourceSet' )
 const SourceSets = require( './lib/core/SourceSets' )
 const Hutt = require( './lib/hutt' )
+const factoryUtils = require( './lib/util/dsl-helpers' )
 
 module.exports = {
   Project,
@@ -37,4 +38,5 @@ module.exports = {
   PluginBase,
   BuildTask,
   Hutt,
+  factoryUtils,
 }

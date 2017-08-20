@@ -1,14 +1,13 @@
 {
   "name": "hutt",
-  "version": "0.4.4",
+  "version": "0.0.0-development",
   "description": "Javascript project builder",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "local-publish": "npm publish --registry http://localhost:4873",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "author": "",
+  "author": "Venkat Peri <venkatperi@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "ansi": "^0.3.1",
@@ -21,15 +20,13 @@
     "handlebars": "^4.0.10",
     "hirestime": "^3.1.1",
     "istanbul-lib-hook": "^1.0.7",
-    "js-dsl": "^0.6.3",
+    "js-dsl": "^0.6.6",
     "lodash": "^4.17.4",
-    "mkdirp": "^0.5.1",
     "orchestrator": "^0.3.8",
     "pify": "^3.0.0",
     "ramda": "^0.24.1",
     "resolve": "^1.4.0",
-    "stack-trace": "0.0.10",
-    "write": "^1.0.3"
+    "stack-trace": "0.0.10"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.0",
@@ -44,11 +41,11 @@
     "memory-streams": "^0.1.2",
     "mocha": "^3.5.0",
     "rimraf": "^2.6.1",
-    "semantic-release": "^6.3.6",
+    "semantic-release": "^7.0.2",
     "unique-string": "^1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/venkatperi/gulpr.git"
+    "url": "https://github.com/venkatperi/hutt.git"
   }
 }

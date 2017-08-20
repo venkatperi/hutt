@@ -11,3 +11,4 @@ coverage/
 *.lock
 tmp/
 gen/
+.hutt/
