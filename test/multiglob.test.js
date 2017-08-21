@@ -25,11 +25,23 @@ const path = require( 'path' );
 
 describe( 'multi glob', () => {
   it( 'glob multiple patterns', () => {
-    new MultiGlob({
-      cwd: path.join(__dirname, 'fixtures'),
+    new MultiGlob( {
+      cwd: path.join( __dirname, 'fixtures' ),
       ignore: ['a.txt'],
-    })
+    } )
       .search( ['**/*.js', '**/*.txt'] )
+      .then( console.log )
+      .catch( console.log )
+  } );
+
+  it( 'braces', () => {
+    return new MultiGlob( {
+      cwd: path.join( __dirname, 'fixtures' ),
+    } )
+      .search( [
+        '{sass,scss}/**/*.{sass,scss}',
+        '**/*.txt',
+      ] )
       .then( console.log )
       .catch( console.log )
   } );

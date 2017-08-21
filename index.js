@@ -28,6 +28,7 @@ const SourceSet = require( './lib/core/SourceSet' )
 const SourceSets = require( './lib/core/SourceSets' )
 const Hutt = require( './lib/hutt' )
 const transformTaskPluginClass = require( './lib/plugins/transform/TransformTaskPlugin' )
+const sourceSetPluginClass = require( './lib/plugins/sourceSet/sourceSetPluginClass' )
 const factoryUtils = require( './lib/util/dsl-helpers' )
 
 module.exports = {
@@ -41,4 +42,5 @@ module.exports = {
   Hutt,
   factoryUtils,
   transformTaskPluginClass,
+  sourceSetPluginClass,
 }
