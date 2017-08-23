@@ -27,11 +27,17 @@ const PluginBase = require( './lib/core/PluginBase' )
 const SourceSet = require( './lib/core/SourceSet' )
 const SourceSets = require( './lib/core/SourceSets' )
 const Hutt = require( './lib/hutt' )
+const SpawnTask = require( './lib/plugins/spawn/SpawnTask' );
 const transformTaskPluginClass = require( './lib/plugins/transform/TransformTaskPlugin' )
+const taskPluginClass = require( './lib/plugins/task/TaskPlugin' )
 const sourceSetPluginClass = require( './lib/plugins/sourceSet/sourceSetPluginClass' )
-const factoryUtils = require( './lib/util/dsl-helpers' )
+const { factoryClass, builderClass } = require( './lib/util/classBuilders' )
+const LOGGER = require( './lib/util/LOG' )
+const LogWritable = require( './lib/util/LogWritable' )
 
 module.exports = {
+  SpawnTask,
+  taskPluginClass,
   Project,
   Task,
   SourceSet,
@@ -40,7 +46,10 @@ module.exports = {
   PluginBase,
   BuildTask,
   Hutt,
-  factoryUtils,
+  factoryClass,
+  builderClass,
   transformTaskPluginClass,
   sourceSetPluginClass,
+  LOGGER,
+  LogWritable,
 }

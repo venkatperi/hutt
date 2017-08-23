@@ -13,6 +13,7 @@
   "dependencies": {
     "ansi": "^0.3.1",
     "arrayp": "^1.1.0",
+    "chalk": "^2.1.0",
     "cross-spawn-promise": "^0.10.1",
     "debug": "^3.0.0",
     "eventbusjs": "^0.2.0",
@@ -25,6 +26,9 @@
     "js-dsl": "^0.6.6",
     "lodash": "^4.17.4",
     "log-update": "^2.1.0",
+    "log4js": "^2.3.3",
+    "moduletag": "^1.0.2",
+    "npmlog": "^4.1.2",
     "orchestrator": "^0.3.8",
     "pify": "^3.0.0",
     "ramda": "^0.24.1",
