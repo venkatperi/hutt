@@ -37,6 +37,8 @@
     "ramda": "^0.24.1",
     "replace-ext": "^1.0.0",
     "resolve": "^1.4.0",
+    "sequelize": "^4.7.5",
+    "sqlite3": "^3.1.9",
     "stack-trace": "0.0.10",
     "terminal-kit": "^1.13.7",
     "vinyl": "^2.1.0",
