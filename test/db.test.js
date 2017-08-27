@@ -19,51 +19,46 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const SourceSetTask = require( '../../core/SourceSetTask' );
-const arrayp = require( 'arrayp' );
-const write = require( 'write' );
-const R = require( 'ramda' );
-const fs = require( 'fs' );
-const pify = require( 'pify' );
+const assert = require( 'assert' );
+const db = require( '../lib/db' );
+const TaskModel = require( '../lib/db/model/Task' )
+const FileModel = require( '../lib/db/model/File' )
+const uniqueString = require( 'unique-string' );
+const util = require( 'util' );
 
-const stat = pify( fs.stat );
+let taskName = null
+let filePath = null
 
-class TransformTask extends SourceSetTask {
-  constructor( name, opts = {} ) {
-    super( name, opts );
-    this._transformFile = opts.transformFile;
-    this._outputsMap = opts.outputs;
-  }
+describe( 'db', () => {
+  it( 'initialized', () => db.initialize() )
+  describe( 'tasks', () => {
+    beforeEach( () => {
+      taskName = uniqueString();
+      filePath = `/a/b/${uniqueString()}`;
+    } )
 
-  get outputsMap() {
-    return this._outputsMap;
-  }
+    it( 'add task', () => TaskModel
+      .query()
+      .insert( { name: taskName } ) )
 
-  checkOutputs() {
-    return arrayp.chain( [
-      this.inputs,
-      R.map( R.pipe(
-        R.prop( 'outputs' ),
-        R.map( stat ) ) ),
-    ] );
-  }
+    it( 'add task with file', () => TaskModel
+      .query()
+      .insert( { name: taskName } )
+      .then( task =>
+        task
+          .$relatedQuery( 'files' )
+          .insert( { path: filePath, size: 9001 } ) )
+      .then( () => TaskModel
+        .query()
+        .eager( 'files' )
+        .where( { name: taskName } ) )
+      .then( x => console.log( util.inspect( x, { depth: 5 } ) ) ),
+    )
 
-  outputFile( file, type = 'default' ) {
-    return this._outputsMap[type]( file );
-  }
+    afterEach( () => TaskModel
+      .query()
+      .delete()
+      .where( { name: taskName } ) )
+  } )
+} );
 
-  processFile( file ) {
-    return arrayp.chain( [
-      this._transformFile( file.path, this.extension ),
-
-      res => Promise.all( Object
-        .getOwnPropertyNames( this.outputsMap )
-        .filter( x => !!res[x] )
-        .map( x => write(
-          this.outputFile( file.outputPath, x ),
-          res[x] ) ) ),
-    ] )
-  }
-}
-
-module.exports = TransformTask;

@@ -18,52 +18,35 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-const SourceSetTask = require( '../../core/SourceSetTask' );
 const arrayp = require( 'arrayp' );
-const write = require( 'write' );
-const R = require( 'ramda' );
-const fs = require( 'fs' );
-const pify = require( 'pify' );
 
-const stat = pify( fs.stat );
+exports.up = ( knex ) => {
+  return arrayp.chain( [
+    () => knex.schema.createTable( 'Task', ( table ) => {
+      table.increments( 'id' ).primary();
+      table.string( 'name' ).unique();
+    } ),
 
-class TransformTask extends SourceSetTask {
-  constructor( name, opts = {} ) {
-    super( name, opts );
-    this._transformFile = opts.transformFile;
-    this._outputsMap = opts.outputs;
-  }
+    () => knex.schema.createTable( 'File', ( table ) => {
+      table.increments( 'id' ).primary();
+      table.string( 'path' ).unique();
+    } ),
 
-  get outputsMap() {
-    return this._outputsMap;
-  }
-
-  checkOutputs() {
-    return arrayp.chain( [
-      this.inputs,
-      R.map( R.pipe(
-        R.prop( 'outputs' ),
-        R.map( stat ) ) ),
-    ] );
-  }
-
-  outputFile( file, type = 'default' ) {
-    return this._outputsMap[type]( file );
-  }
-
-  processFile( file ) {
-    return arrayp.chain( [
-      this._transformFile( file.path, this.extension ),
-
-      res => Promise.all( Object
-        .getOwnPropertyNames( this.outputsMap )
-        .filter( x => !!res[x] )
-        .map( x => write(
-          this.outputFile( file.outputPath, x ),
-          res[x] ) ) ),
-    ] )
-  }
+    () => knex.schema.createTable( 'Task_File', ( table ) => {
+      table.increments( 'id' ).primary();
+      table.integer( 'fileId' ).unsigned().references( 'id' ).inTable( 'File' ).onDelete( 'CASCADE' );
+      table.integer( 'taskId' ).unsigned().references( 'id' ).inTable( 'Task' ).onDelete( 'CASCADE' );
+      table.integer( 'size' )
+      table.dateTime( 'ctime' )
+      table.dateTime( 'mtime' )
+    } ),
+  ] )
 }
 
-module.exports = TransformTask;
+exports.down = ( knex ) => {
+  return knex.schema
+    .dropTableIfExists( 'Task' )
+    .dropTableIfExists( 'File' )
+    .dropTableIfExists( 'Task_File' )
+}
+
