@@ -1,6 +1,6 @@
 apply( { plugins: ['babel', 'sass'] } )
 
-// includeFlat( 'hutt-cli', 'hutt-plugin-sourceset-js', 'hutt-plugin-sourceset-sass', 'hutt-plugin-babel', 'hutt-plugin-sass', )
+includeFlat( 'hutt-cli', 'hutt-plugin-sourceset-js', 'hutt-plugin-sourceset-sass', 'hutt-plugin-babel', 'hutt-plugin-sass', )
 
 babel( {
   presets: ['es2015'],
