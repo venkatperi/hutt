@@ -37,7 +37,8 @@
     "sqlite3": "^3.1.9",
     "stack-trace": "0.0.10",
     "util.promisify": "^1.0.0",
-    "write": "^1.0.3"
+    "write": "^1.0.3",
+    "js-fsm": "*"
   },
   "devDependencies": {
     "documentation": "^5.2.1",

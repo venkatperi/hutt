@@ -20,33 +20,29 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 const arrayp = require( 'arrayp' );
 
-exports.up = ( knex ) => {
-  return arrayp.chain( [
-    () => knex.schema.createTable( 'Task', ( table ) => {
-      table.increments( 'id' ).primary();
-      table.string( 'name' ).unique();
-    } ),
+exports.up = knex => arrayp.chain( [
+  () => knex.schema.createTable( 'Task', ( table ) => {
+    table.string( 'name' ).primary();
+  } ),
 
-    () => knex.schema.createTable( 'File', ( table ) => {
-      table.increments( 'id' ).primary();
-      table.string( 'path' ).unique();
-    } ),
+  () => knex.schema.createTable( 'File', ( table ) => {
+    table.string( 'path' ).primary();
+  } ),
 
-    () => knex.schema.createTable( 'Task_File', ( table ) => {
-      table.increments( 'id' ).primary();
-      table.integer( 'fileId' ).unsigned().references( 'id' ).inTable( 'File' ).onDelete( 'CASCADE' );
-      table.integer( 'taskId' ).unsigned().references( 'id' ).inTable( 'Task' ).onDelete( 'CASCADE' );
-      table.integer( 'size' )
-      table.dateTime( 'ctime' )
-      table.dateTime( 'mtime' )
-    } ),
-  ] )
-}
+  () => knex.schema.createTable( 'Task_File', ( table ) => {
+    table.increments( 'id' ).primary();
+    table.string( 'filePath' ).references( 'path' ).inTable( 'File' ).onDelete( 'CASCADE' );
+    table.string( 'taskName' ).references( 'name' ).inTable( 'Task' ).onDelete( 'CASCADE' );
+    table.unique( ['filePath', 'taskName'] )
+    table.integer( 'size' )
+    table.dateTime( 'ctime' )
+    table.dateTime( 'mtime' )
+    table.enum( 'role', ['input', 'output'] )
+  } ),
+] )
 
-exports.down = ( knex ) => {
-  return knex.schema
-    .dropTableIfExists( 'Task' )
-    .dropTableIfExists( 'File' )
-    .dropTableIfExists( 'Task_File' )
-}
+exports.down = knex => knex.schema
+  .dropTableIfExists( 'Task' )
+  .dropTableIfExists( 'File' )
+  .dropTableIfExists( 'Task_File' )
 

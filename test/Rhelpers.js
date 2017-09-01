@@ -19,15 +19,16 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const Task = require( './Task' )
+const assert = require( 'assert' );
+const H = require( '../lib/util/Rhelpers' )
+const R = require( 'ramda' );
 
-class CompileTask extends Task {
-  constructor( name, opts = {} ) {
-    super( name, opts );
-    if ( !this.project.hasTask( 'compile' ) ) {
-      this.project.addTask( 'compile' );
-    }
-  }
-}
+describe( 'R helpers', () => {
+  it( 'notEmpty', () => {
+    assert( H.notEmpty( [1, 2] ) )
+    assert( !H.notEmpty( [] ) )
+    assert( R.isEmpty( [] ) )
+    assert( !R.isEmpty( [1] ) )
+  } );
+} );
 
-module.exports = CompileTask;
